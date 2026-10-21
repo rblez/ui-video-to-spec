@@ -1,0 +1,27 @@
+# Configuración de ui-video-to-spec (formato plano clave: valor).
+# El loader propio (types.load_config) acepta este subconjunto de YAML:
+# líneas `clave: valor`, comentarios con #, valores int/float/bool/string.
+# Cualquier clave ausente usa el valor por defecto documentado aquí.
+
+# Frames por segundo para zonas estáticas del video.
+fps_static: 1
+# Frames por segundo para ventanas con animación detectada.
+fps_motion: 30
+# Número máximo de colores en la paleta medida.
+palette_size: 8
+# Área mínima (px²) para considerar un blob como elemento.
+min_element_area: 900
+# Diferencia media entre frames (0-255) a partir de la cual hay "movimiento".
+motion_diff_threshold: 3.0
+# Umbral SSIM (0-1) que debe alcanzar el loop de verificación.
+ssim_threshold: 0.92
+# Intentos máximos del loop de verificación.
+max_attempts: 3
+# Proveedor de visión para interpret.py: none | openai | anthropic
+# (también configurable con UI2SPEC_VISION_PROVIDER / UI2SPEC_VISION_MODEL).
+vision_provider: none
+vision_model:
+# true si el modelo configurado acepta video nativo (se salta frames en el paso 6).
+vision_native_video: false
+# Idioma de reportes y transcripción: es | en
+language: es

@@ -1,0 +1,53 @@
+{
+  "resolution": [
+    1280,
+    720
+  ],
+  "background": "#EEF1F6",
+  "card": {
+    "fill": "#FFFFFF",
+    "radius_px": 16,
+    "bbox": [
+      400,
+      180,
+      480,
+      360
+    ],
+    "shadow": {
+      "offset_y": 10,
+      "blur_approx": 18
+    }
+  },
+  "button": {
+    "fill": "#2563EB",
+    "radius_px": 10,
+    "bbox": [
+      490,
+      430,
+      300,
+      56
+    ]
+  },
+  "animation": {
+    "target": "button",
+    "properties": {
+      "opacity": {
+        "from": 0.0,
+        "to": 1.0
+      },
+      "translateY": {
+        "from": 24.0,
+        "to": 0.0,
+        "unit": "px"
+      }
+    },
+    "duration_ms": 600,
+    "delay_ms": 1000,
+    "easing": [
+      0.22,
+      1.0,
+      0.36,
+      1.0
+    ]
+  }
+}

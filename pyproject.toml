@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ui-video-to-spec"
+version = "0.1.0"
+description = "Convierte un video de una UI en un design spec medido (tokens, motion, componentes) listo para recrear el diseño."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "ui-video-to-spec" }]
+keywords = ["ui", "design-tokens", "video", "motion", "reverse-engineering"]
+dependencies = [
+    "numpy>=1.24",
+    "opencv-python-headless>=4.8",
+    "Pillow>=10.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+ocr = ["pytesseract>=0.3.10"]
+audio = ["openai-whisper>=20231117"]
+verify = ["playwright>=1.40"]
+vision = ["requests>=2.31"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+ui-video-to-spec = "ui_video_to_spec.cli:main"
+
+[project.urls]
+Homepage = "https://example.invalid/ui-video-to-spec"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

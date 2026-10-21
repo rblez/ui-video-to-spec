@@ -1,0 +1,42 @@
+---
+name: estilo-capturado-{{ slug }}
+description: "Estilo visual MEDIDO desde un video de UI ({{ video_name }}). Úsalo para recrear o extender esta interfaz con los mismos tokens: colores, espaciados, radios, sombras, tipografía y motion."
+---
+
+# Estilo capturado: {{ video_name }}
+
+Este skill describe un diseño **medido píxel a píxel** desde un video
+({{ width }}×{{ height }}). Los valores marcados como *medido* son exactos
+(salvo ruido de compresión del video); los *inferidos* vienen de una
+heurística sobre la medición; los *adivinados* son sugerencias.
+
+## Colores
+
+| Token | Valor | Confianza |
+|---|---|---|
+{% for c in colors %}| `{{ c.name }}` | `{{ c.value }}` | {{ c.confidence }} |
+{% endfor %}
+## Espaciado
+
+Escala medida (px): {{ spacing_list }}.
+Usa solo valores de esta escala para márgenes y gaps.
+
+## Radios y sombras
+
+{% for r in radii %}- Radio `{{ r.name }}`: {{ r.value }}px
+{% endfor %}{% for s in shadows %}- Sombra: `{{ s }}`
+{% endfor %}
+## Tipografía
+
+{% for t in typography %}- {{ t.size }}px / peso {{ t.weight }} — fuente sugerida: {{ t.font }} ({{ t.confidence }})
+{% endfor %}
+## Motion
+
+{% for a in animations %}- `{{ a.property }}`: {{ a.duration }}ms, delay {{ a.delay }}ms, `{{ a.easing }}`, de {{ a.from }} a {{ a.to }}{{ a.unit }}
+{% else %}- Sin animaciones detectadas en el video.
+{% endfor %}
+## Reglas
+
+1. No inventes valores: si un token no está aquí, pregúntalo o usa el más cercano de la escala.
+2. Mantén el fondo `{{ bg }}` y la superficie principal; el color primario es el de acción.
+3. Respeta duraciones y easings medidos: son la "sensación" de esta UI.

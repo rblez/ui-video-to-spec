@@ -1,0 +1,54 @@
+# Reporte de medición — {{ video_name }}
+
+Video: `{{ video_path }}` · {{ width }}×{{ height }} · {{ duration }}s ·
+frame de referencia: t={{ ref_time }}s
+
+## Niveles de confianza
+
+- **medido**: calculado directamente de los píxeles/frames.
+- **inferido**: derivado de una medición con heurística (p. ej. radio desde la esquina).
+- **adivinado**: sugerencia sin medición directa (p. ej. familia tipográfica).
+
+## Valores medidos e inferidos
+
+| Valor | Dato | Confianza |
+|---|---|---|
+{% for row in rows %}| {{ row.label }} | `{{ row.value }}` | {{ row.confidence }} |
+{% endfor %}
+## Animaciones detectadas
+
+{% for a in animations %}- **{{ a.property }}** ({{ a.element }}): {{ a.duration }}ms, delay {{ a.delay }}ms, `{{ a.easing }}`, de {{ a.from }} a {{ a.to }}{{ a.unit }} — {{ a.confidence }}
+{% else %}- Ninguna. El video no mostró ventanas de movimiento medibles.
+{% endfor %}
+## Avisos
+
+{% for w in warnings %}- ⚠️ {{ w }}
+{% else %}- Sin avisos.
+{% endfor %}
+## Notas del pipeline
+
+{% for n in notes %}- {{ n }}
+{% endfor %}
+{% if transcript %}## Transcripción de audio (alineada a frames)
+
+{% for s in transcript %}- [{{ s.start }}s → {{ s.end }}s] {{ s.text }}
+{% endfor %}{% endif %}
+{% if verify %}## Verificación visual (paso 8)
+
+- Método: {{ verify.method }}
+- Intentos: {{ verify.attempts }} · SSIM final: {{ verify.ssim }} · Umbral: {{ verify.threshold }} · ¿Pasa? {{ verify.passed }}
+- Diffs guardados en `verify/`.
+{% endif %}
+## Lo que NO se puede deducir de este video
+
+Un video solo muestra lo que se grabó. Esto queda **fuera** de la medición
+y debe definirse aparte al recrear el diseño:
+
+- Estados **hover** y **active** de botones/enlaces (el cursor no los revela sin interacción grabada).
+- Estado **focus** visible (anillo de foco) y navegación por teclado.
+- Estados de **error**, vacío, carga (skeletons) y éxito de formularios.
+- **Dark mode** u otros temas no mostrados en la grabación.
+- Comportamiento **responsive**: otros anchos de pantalla no grabados.
+- Contenido dinámico real (datos, textos largos, truncados) y lógica de negocio.
+- Interacciones no ejecutadas durante la grabación (menús, modales, scroll).
+- Micro-interacciones por debajo de la resolución temporal del video.
